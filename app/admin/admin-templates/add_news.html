@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='style.css') }}">
+    <title>add_news</title>
+</head>
+
+<body>
+    <form action="{{ url_for('admin.news') }}" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        uz_title : {{ form.uz_title() }}
+        ru_title : {{ form.ru_title() }}
+        en_title : {{ form.en_title() }}
+
+        text : {{ form.uz_text() }}
+        text : {{ form.ru_text() }}
+        text : {{ form.en_text() }}
+        image : {{ form.image() }}
+
+        {{ form.submit() }}
+    </form>
+</body>
+
+</html>

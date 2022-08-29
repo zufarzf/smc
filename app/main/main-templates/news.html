@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{{ url_for('main.static', filename='images/svg/logo_white.svg') }}"
+    type="image/x-icon" />
+
+  <!-- SWIPER CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.3.2/swiper-bundle.min.css" />
+
+  <!-- STYLE CSS -->
+  <link rel="stylesheet" href="{{ url_for('main.static', filename='css/news.css') }}" />
+  <title>Yangiliklar</title>
+</head>
+
+
+<body>
+  <!-- NAV -->
+  <nav>
+    <a href="{{ url_for('main.main_page') }}">
+      <img src="{{ url_for('main.static', filename='images/svg/logo_white.svg') }}" alt="SMC" />
+    </a>
+    <a href="{{ url_for('main.main_page') }}">
+      <span>Bosh sahifa</span>
+    </a>
+  </nav>
+  <!-- NEWS -->
+  <main class="news">
+    <section class="today-news">
+      <div class="title">{{ news_data.title }}</div>
+      <div class="banner">
+        <img src="{{ url_for('main.static', filename='news_images/' + news_data.image ) }}" alt="banner" />
+      </div>
+      <div class="date-views">
+        <div class="date"></div>
+        <div class="views">
+          <span class="views-icon">&#128065;</span>
+          <span class="views-score">{{ news_data.views }}</span>
+        </div>
+      </div>
+      <div class="paragraph">{{ news_data.text }}</div>
+    </section>
+
+
+    <section class="other-news">
+      <div class="title">So'nggi yangiliklar</div>
+      <div class="other-news-box">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {% for item_news in all_news_data %}
+            {% if item_news.id != news_data.id %}
+            <div class="swiper-slide">
+              <a href="{{ url_for('main.news_page', id=item_news.id ) }}" class="swiper-card">
+                <div class="banner">
+                  <img src="{{ url_for('main.static', filename='news_images/' + item_news.image ) }}" alt="banner" />
+                </div>
+                <div class="date-views">
+                  <div class="date"></div>
+                  <div class="views">
+                    <span class="views-icon">&#128065;</span>
+                    <span class="views-score">{{ item_news.views }}</span>
+                  </div>
+                </div>
+                <div class="mini-title">{{ item_news.title }}</div>
+                <div class="paragraph">{{ item_news.text }}</div>
+              </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </section>
+  </main>
+
+  {{ moment.include_moment() }}
+  {{ moment.lang(session['lang']) }}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/swiper-bundle.min.js"></script>
+  <script src="{{ url_for('main.static', filename='js/news.js') }}"></script>
+</body>
+
+</html>

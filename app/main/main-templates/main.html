@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMC</title>
+  <link rel="shortcut icon" href="{{ url_for('main.static', filename='images/svg/logo_white.svg') }}"
+    type="image/x-icon" />
+  <!-- SWIPER CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.3.2/swiper-bundle.min.css" />
+
+  <!-- STYE -->
+  <link rel="stylesheet" href="{{ url_for('main.static', filename='css/main.css') }}" />
+</head>
+
+<body>
+  <!-- COSMOS -->
+  <div id="cosmos">
+    <div id="stars"></div>
+    <div id="gradient"></div>
+  </div>
+
+  <!-- EARTH -->
+  <div id="earth-container">
+    <div id="earth-box">
+      <div id="earth-wrapper">
+        <video id="earth" src="{{ url_for('main.static', filename='images/earth.webm') }}" autoplay muted loop></video>
+      </div>
+    </div>
+    <div id="earth-atmosphere"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="left-panel">
+      <div id="logo">
+        <img src="{{ url_for('main.static', filename='images/svg/logo_white.svg') }}" alt="SMC" />
+      </div>
+      <div class="menu-wrapper">
+        <div id="menuButton">
+          <img src="{{ url_for('main.static', filename='images/svg/menu.svg') }}" alt="Bar" />
+          <span>Menu</span>
+        </div>
+        {% if session['lang'] == 'ru' %}
+        <div id="menu">
+          <div class="menu-item">Напровления</div>
+          <div class="menu-item">Услуги</div>
+          <div class="menu-item">Вопросы</div>
+          <div class="menu-item">Новости</div>
+          <div class="menu-item">Сотрудники</div>
+          <div class="menu-item">Cсылки</div>
+          <div class="menu-item">Связаться</div>
+        </div>
+        {% elif session['lang'] == 'en' %}
+        <div id="menu">
+          <div class="menu-item">Directions</div>
+          <div class="menu-item">Services</div>
+          <div class="menu-item">Questions</div>
+          <div class="menu-item">News</div>
+          <div class="menu-item">Staff</div>
+          <div class="menu-item">Links</div>
+          <div class="menu-item">Feedback</div>
+        </div>
+        {% else %}
+        <div id="menu">
+          <div class="menu-item">Yo'nalishlar</div>
+          <div class="menu-item">Xizmatlar</div>
+          <div class="menu-item">Savollar</div>
+          <div class="menu-item">Yangiliklar</div>
+          <div class="menu-item">Hodimlar</div>
+          <div class="menu-item">Havolalar</div>
+          <div class="menu-item">Bog'lanish</div>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+    {% if session['lang'] == 'ru' %}
+    <div id="lang">
+      <a href="{{ url_for('main.lang', lang_code='uz') }}">UZ</a>
+      <a href="{{ url_for('main.lang', lang_code='en') }}">EN</a>
+    </div>
+    {% elif session['lang'] == 'en' %}
+    <div id="lang">
+      <a href="{{ url_for('main.lang', lang_code='ru') }}">RU</a>
+      <a href="{{ url_for('main.lang', lang_code='uz') }}">UZ</a>
+    </div>
+    {% else %}
+    <div id="lang">
+      <a href="{{ url_for('main.lang', lang_code='ru') }}">RU</a>
+      <a href="{{ url_for('main.lang', lang_code='en') }}">EN</a>
+    </div>
+    {% endif %}
+    {% for message in get_flashed_messages() %}
+    {{ message }}
+    {% endfor %}
+    <div id="page-controls">
+      <div id="page-controls-wrapper">
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg active" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <div class="page-control">
+          <svg>
+            <circle class="control-svg" />
+            <circle />
+          </svg>
+        </div>
+        <span id="page-dot"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =================== PAGES =================== -->
+  <main>
+    <!-- =================== PAGE 1 =================== -->
+    <section class="page active render">
+      <div class="page-box-1">
+        <div class="swiper" id="page-1">
+          <!-- ===================================================================== -->
+          <div class="swiper-wrapper">
+            {% for i in direction_data %}
+            <div class="swiper-slide">
+              <div class="title">{{ i }}</div>
+            </div>
+            {% endfor %}
+          </div>
+          <!-- ===================================================================== -->
+        </div>
+        <div class="swiper-pagination" id="swiper-pagination-1"></div>
+      </div>
+    </section>
+
+
+    <!-- =================== PAGE 2 =================== -->
+    <section class="page">
+
+      <div class="page-box-2">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Услуги</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">Services</div>
+        {% else %}
+        <div class="title">Xizmatlar</div>
+        {% endif %}
+
+        <div class="swiper" id="page-2">
+          <div class="swiper-wrapper">
+            <!-- =================== swiper-slide =================== -->
+            {% for i in services_data %}
+            <div class="swiper-slide">
+              <div class="swiper-card">
+                <div class="swiper-card-head">
+                  <div class="swiper-img-box">
+                    <img src="{{ url_for('main.static', filename='images/svg/logo_white.svg' ) }}" alt="photo" />
+                  </div>
+                  <div class="swiper-title">{{ i.title }}</div>
+                </div>
+                <div class="swiper-card-body">{{ i.text }}</div>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- ===================================================== -->
+
+          </div>
+        </div>
+        <div class="swiper-pagination" id="swiper-pagination-2"></div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- =================== PAGE 3 =================== -->
+    <section class="page">
+      <div class="page-box-3">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Вопросы</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">Questions</div>
+        {% else %}
+        <div class="title">Savollar</div>
+        {% endif %}
+        <div class="accordions-wrapper">
+          <!-- ================================== -->
+
+          {% if direction_data %}
+          <div class="swiper" id="page-3">
+            <div class="swiper-wrapper tab-menu">
+              <div class="swiper-slide tab active">
+                <div>{{ direction_data[0] }}</div>
+              </div>
+              <div class="swiper-slide tab">
+                <div>{{ direction_data[1] }}</div>
+              </div>
+              <div class="swiper-slide tab">
+                <div>{{ direction_data[2] }}</div>
+              </div>
+              <div class="swiper-slide tab">
+                <div>{{ direction_data[3] }}</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <!-- ================================== -->
+
+          <div class="accordions">
+            <div class="accordion-wrapper active">
+              {% for question in questions_data[0] %}
+              {% if question.slider_class %}
+              <div class="accordion active">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% else %}
+              <div class="accordion">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- ====================================================================== -->
+            <div class="accordion-wrapper">
+
+              {% for question in questions_data[1] %}
+              {% if question.slider_class %}
+              <div class="accordion active">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% else %}
+              <div class="accordion">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- ====================================================================== -->
+            <div class="accordion-wrapper">
+              {% for question in questions_data[2] %}
+              {% if question.slider_class %}
+              <div class="accordion active">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% else %}
+              <div class="accordion">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- ====================================================================== -->
+            <div class="accordion-wrapper">
+              {% for question in questions_data[3] %}
+              {% if question.slider_class %}
+              <div class="accordion active">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% else %}
+              <div class="accordion">
+                <div class="accordion-title">
+                  <div>{{ question.ques }}</div>
+                  <div class="indicator">
+                    <span>&times;</span>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-body-box scrollable">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!-- ====================================================================== -->
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page">
+      <div class="page-box-4">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Новости</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">News</div>
+        {% else %}
+        <div class="title">Yangiliklar</div>
+        {% endif %}
+        <div class="swiper" id="page-4">
+
+          <div class="swiper-wrapper">
+            {% for i in news_data %}
+            <div class="swiper-slide">
+              <div class="swiper-card">
+                <div class="swiper-head">
+                  <img src="{{ url_for('main.static', filename='news_images/' + i.image ) }}" alt="photo" />
+                </div>
+                <div class="swiper-body">
+                  <div class="swiper-text">
+                    <h3>{{ i.title }}</h3>
+                    <p class="scrollable">{{ i.text }}</p>
+                  </div>
+                  <div class="swiper-more">
+                    <a href="{{ url_for('main.news_page', id=i.id ) }}">More...</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+        <div class="swiper-pagination" id="swiper-pagination-4"></div>
+      </div>
+    </section>
+
+
+
+    <!-- PAGE 5 -->
+    <section class="page">
+      <div class="page-box-5">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Сотрудники</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">Staff</div>
+        {% else %}
+        <div class="title">Hodimlar</div>
+        {% endif %}
+        <div class="swiper" id="page-5">
+
+
+          <div class="swiper-wrapper">
+
+            {% for event in events_data %}
+            <div class="swiper-slide">
+              <div class="swiper-card">
+                <div class="swiper-head">
+                  {% if event.image %}
+                  <img src="{{ url_for('main.static', filename='events_images/' + event.image) }}" alt="photo" />
+                  {% endif %}
+
+                </div>
+                <div class="swiper-body">
+                  <div class="swiper-text">
+                    <div class="swiper-user-name">{{ event.name }}</div>
+                    <div class="swiper-job-title">{{ event.position }}</div>
+                  </div>
+                  <div class="swiper-links">
+                    <a href="{{ event.facebook }}">
+                      <img src="{{ url_for('main.static', filename='images/svg/facebook.svg') }}" alt="facebook" />
+                    </a>
+                    <a href="{{ event.instagram }}">
+                      <img src="{{ url_for('main.static', filename='images/svg/instagram.svg') }}" alt="instagram" />
+                    </a>
+                    <a href="{{ event.telegram }}">
+                      <img src="{{ url_for('main.static', filename='images/svg/telegram.svg') }}" alt="telegram" />
+                    </a>
+                    <a href="tel:{{ event.phone }}">
+                      <img src="{{ url_for('main.static', filename='images/svg/phone.svg') }}" alt="phone" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+
+        </div>
+        <div class="swiper-pagination" id="swiper-pagination-5"></div>
+        <img id="astronaut" src="{{ url_for('main.static', filename='images/astronaut.webp')}}" alt="astronaut" />
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="page">
+      <div class="page-box-6">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Полезные ссылки</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">Useful links</div>
+        {% else %}
+        <div class="title">Foydali havolalar</div>
+        {% endif %}
+        <div class="swiper" id="page-6">
+          <div class="swiper-wrapper">
+
+            {% for link in links_data %}
+            <div class="swiper-slide">
+              <div class="swiper-card">
+                <div class="swiper-head">
+                  <img src="{{ url_for('main.static', filename='links_images/' + link.image) }}" alt="photo" />
+                </div>
+                <div class="swiper-body">
+                  <div class="swiper-text">
+                    <h3>{{ link.title }}</h3>
+                    <p class="scrollable">{{ link.text }}</p>
+                  </div>
+                  <div class="swiper-more">
+                    <a href="{{ link.link }}" target="_ blank">More...</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </section>
+
+
+
+    <!-- PAGE 7 -->
+    <section class="page">
+      <div class="page-box-7">
+        {% if session['lang'] == 'ru' %}
+        <div class="title">Обратная связь</div>
+        {% elif session['lang'] == 'en' %}
+        <div class="title">Feedback</div>
+        {% else %}
+        <div class="title">Bog'lanish</div>
+        {% endif %}
+        <div class="swiper" id="page-7">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+
+
+              <form action="{{ url_for('main.feedback') }}" method="post"
+                oninput="select_controller.value=satellite_connection.value">
+
+
+                {% if session['lang'] == 'ru' %}
+                <div class="form-child">
+                  <div class="select">
+                    <!-- SELECT HEAD -->
+                    <input name="select_controller" for="satellite_connection" placeholder="Выберите напровление"
+                      readonly />
+                    <div id="selectHead"></div>
+                    <!-- SELECECT CHILDS -->
+                    <div class="select-body">
+                      {% for i in direction_data %}
+                      <label class="select-child scrollable">
+                        <div>{{ i }}</div>
+                        <input type="radio" name="satellite_connection" value="{{ i }}" required />
+                      </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-child">
+                  <input type="text" name="organization" placeholder="Организация" required />
+                </div>
+                <div class="form-child">
+                  <input type="text" name="position" placeholder="Должность" required />
+                </div>
+                <div class="form-child">
+                  <input type="tel" name="phone" placeholder="Номер телефона"
+                    data-inputmask="'mask': '+\\9\\9\\8 (99) 999-99-99'" required />
+                </div>
+                <div class="form-child">
+                  <textarea name="comment" placeholder="Напишите свой вопрос"></textarea>
+                </div>
+                <div class="form-child">
+                  <button type="submit">Отправить</button>
+                </div>
+                {% elif session['lang'] == 'en' %}
+                <div class="form-child">
+                  <div class="select">
+                    <!-- SELECT HEAD -->
+                    <input name="select_controller" for="satellite_connection" placeholder="Choose a direction"
+                      readonly />
+                    <div id="selectHead"></div>
+                    <!-- SELECECT CHILDS -->
+                    <div class="select-body">
+                      {% for i in direction_data %}
+                      <label class="select-child scrollable">
+                        <div>{{ i }}</div>
+                        <input type="radio" name="satellite_connection" value="{{ i }}" required />
+                      </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-child">
+                  <input type="text" name="organization" placeholder="Organization" required />
+                </div>
+                <div class="form-child">
+                  <input type="text" name="position" placeholder="Post" required />
+                </div>
+                <div class="form-child">
+                  <input type="tel" name="phone" placeholder="Phone number"
+                    data-inputmask="'mask': '+\\9\\9\\8 (99) 999-99-99'" required />
+                </div>
+                <div class="form-child">
+                  <textarea name="comment" placeholder="Write your question"></textarea>
+                </div>
+                <div class="form-child">
+                  <button type="submit">Send</button>
+                </div>
+                {% else %}
+                <div class="form-child">
+                  <div class="select">
+                    <!-- SELECT HEAD -->
+                    <input name="select_controller" for="satellite_connection" placeholder="Yo'nalishni tanlang"
+                      readonly />
+                    <div id="selectHead"></div>
+                    <!-- SELECECT CHILDS -->
+                    <div class="select-body">
+                      {% for i in direction_data %}
+                      <label class="select-child scrollable">
+                        <div>{{ i }}</div>
+                        <input type="radio" name="satellite_connection" value="{{ i }}" required />
+                      </label>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-child">
+                  <input type="text" name="organization" placeholder="Tashkilot" required />
+                </div>
+                <div class="form-child">
+                  <input type="text" name="position" placeholder="Lavozim" required />
+                </div>
+                <div class="form-child">
+                  <input type="tel" name="phone" placeholder="Telefon raqam"
+                    data-inputmask="'mask': '+\\9\\9\\8 (99) 999-99-99'" required />
+                </div>
+                <div class="form-child">
+                  <textarea name="comment" placeholder="Savolingizni yozing"></textarea>
+                </div>
+                <div class="form-child">
+                  <button type="submit">Yuborish</button>
+                </div>
+                {% endif %}
+
+              </form>
+
+
+            </div>
+
+
+            {% if smc %}
+            <div class="swiper-slide">
+              <div class="contacts">
+                <div class="contact">
+                  <div class="contact-box">
+                    <div class="contact-img-box">
+                      <img src="{{ url_for('main.static', filename='images/svg/location.svg') }}" alt="Address" />
+                    </div>
+                    <div class="contact-content">
+                      {% if session['lang'] == 'ru' %}
+                      <strong>Адрес: </strong>
+                      {% elif session['lang'] == 'en' %}
+                      <strong>Address: </strong>
+                      {% else %}
+                      <strong>Manzil: </strong>
+                      {% endif %}
+                      <span>{{ smc[0].address }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="contact">
+                  <div class="contact-box">
+                    <div class="contact-img-box">
+                      <img src="{{ url_for('main.static', filename='images/svg/phone.svg') }}" alt="phone" />
+                    </div>
+                    <div class="contact-content">
+                      {% if session['lang'] == 'ru' %}
+                      <strong>Тел.: </strong>
+                      {% else %}
+                      <strong>Tel.: </strong>
+                      {% endif %}
+                      <a href="tel:+998991234567">{{ smc[0].tel }}</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="contact">
+                  <div class="contact-box">
+                    <div class="contact-img-box">
+                      <img src="{{ url_for('main.static', filename='images/svg/email.svg') }}" alt="email" />
+                    </div>
+                    <div class="contact-content">
+                      <strong>E-mail: </strong>
+                      <a href="mailto:lorem@ipsum.com">{{ smc[0].email }}</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="map">MAP</div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="swiper-pagination" id="swiper-pagination-7"></div>
+      </div>
+      <div class="author">
+        <div class="left">&copy; 2022 All rights reserved</div>
+        <a href="#" class="right"> Hme </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- JS -->
+  {{ moment.include_moment() }}
+  {{ moment.lang('uz') }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
+  <script src="{{ url_for('main.static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

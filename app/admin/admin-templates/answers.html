@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='style.css') }}">
+    <title>answers</title>
+</head>
+
+<body>
+    <form action="{{ url_for('admin.question_answers') }}" method="post">
+        {{ form.hidden_tag() }}
+
+        uz_ques : {{ form.uz_ques() }}
+        ru_ques : {{ form.ru_ques() }}
+        en_ques : {{ form.en_ques() }}
+
+        uz_answer : {{ form.uz_answer() }}
+        ru_answer : {{ form.ru_answer() }}
+        en_answer : {{ form.en_answer() }}
+        id : {{ form.id() }}
+        id : {{ form.slider_class() }}
+
+        {{ form.submit() }}
+    </form>
+</body>
+
+</html>
